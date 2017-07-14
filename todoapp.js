@@ -1,9 +1,27 @@
 $(document).ready(function () {
   var todos = [];
+  var state = 'all';
 
-  function addtodo() {
+  function filterByState(todo){
+    if(state === 'completed'){
+        return todo.completed;
+      } else if (state === 'active'){
+        return !todo.completed;
+      }
+    else if (state === 'all') {
+      return true
+  }
+  else {
+    return false;
+  }
+  }
+
+  function addtodo(todos) {
+    todos = todos.filter(filterByState);
     $('.items').empty();
     $('.count').empty();
+    $('.filter').children().removeClass('clicked')
+    $('.'+state).addClass('clicked')
     if (!todos.length) {
       var empty = $(`
             <div class = "empty">
@@ -16,7 +34,7 @@ $(document).ready(function () {
       for (var i = 0; i < todos.length; i++) {
         var todoitem = $(
           `<div id = ${todos[i].id} class="todo ${todos[i].completed === true ? "completed" : ""}">
-                    <input class="item-box" type="checkbox" ${todos[i].completed ? "checked": ""}><span> ${todos[i].activity} </span><i class="pull-right close">x</i>
+                    <input class="item-box" type="checkbox" ${todos[i].completed ? "checked": ""}><span> ${todos[i].activity} </span><i class="pull-right close"><i class = "fa fa-trash-o"></i>
                 </div>`
         )
         $('.items').append(todoitem);
@@ -36,7 +54,7 @@ $(document).ready(function () {
       }
       return todo;
     })
-    addtodo()
+    addtodo(todos)
   }
 
   function deleteTodo() {
@@ -44,9 +62,34 @@ $(document).ready(function () {
     todos = todos.filter(function (todo) {
       return todo.id !== id;
     })
-    addtodo()
+    addtodo(todos)
   }
-  addtodo();
+  addtodo(todos);
+
+  $('.filter .all').click(showAll);
+  $('.filter .completed').click(showCompleted);
+  $('.filter .active').click(showActive);
+
+  function showAll() {
+    state = 'all';
+    // $('.filter').children().removeClass('clicked')
+    // $('.all').addClass('clicked')
+    addtodo(todos);
+  }
+
+  function showCompleted() {
+    state = 'completed'
+    // $('.filter').children().removeClass('clicked')
+    // $('.completed').addClass('clicked')
+    addtodo(todos)
+  }
+
+  function showActive() {
+    state = 'active'
+    // $('.filter').children().removeClass('clicked')
+    // $('.active').addClass('clicked')
+    addtodo(todos)
+  }
 
   $('#submittodo').click(function () {
     $('#todoform').submit()
@@ -65,7 +108,7 @@ $(document).ready(function () {
     todos.unshift(todoObj);
     // addtodo(todos)
     $("form").trigger("reset");
-    addtodo();
+    addtodo(todos);
   })
 
   function addHover() {
@@ -80,5 +123,5 @@ $(document).ready(function () {
   $('.add').click(function () {
     $('.todofill').slideToggle();
   })
-  addtodo();
+  addtodo(todos);
 })
