@@ -5,10 +5,14 @@ h1 {
 }
 
 .bordered {
-    background-color: #f7f7f7;
+    background-color: lightblue;
+    top: 5%;
+    position: absolute;
+    border-radius: 20px 0px 20px 0px;
 }
 
 .header {
+    color: seagreen;
     text-align: left;
     font-size: 30px;
     font-family: 'Lobster Two', cursive, Courier New, Courier, monospace
@@ -36,13 +40,12 @@ h1 {
     background-color: white;
     padding: 2px 10px;
     border-bottom: 1px solid slategray;
-    margin-top: 10px;
     border-radius: 10px;
+    margin: -5px 0px;
 }
 
 .todo:nth-child(2n) {
-    background-color: #F7F7F7;
-    padding: 0px 10px;
+    background-color: #e0e0d1;
 }
 
 .todo span {
@@ -95,6 +98,7 @@ hr {
     cursor: pointer;
 }
 .input-group-addon{
+    background-color: #e0e0d1;
     color: green;
     font-size: 20px;
 }
@@ -102,4 +106,8 @@ hr {
 .input-group-addon:hover {
     color: gray;
     background-color: whitesmoke
+}
+
+i {
+    padding: 0px 2px;
 }

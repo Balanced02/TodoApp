@@ -33,9 +33,9 @@ $(document).ready(function () {
     } else {
       for (var i = 0; i < todos.length; i++) {
         var todoitem = $(
-          `<div id = ${todos[i].id} class="todo ${todos[i].completed === true ? "completed" : ""}">
-                    <input class="item-box" type="checkbox" ${todos[i].completed ? "checked": ""}><span> ${todos[i].activity} </span><i class="pull-right close"><i class = "fa fa-trash-o"></i>
-                </div>`
+          `<i><div id = ${todos[i].id} class=" todo ${todos[i].completed === true ? "completed" : ""}">
+                    <input class="item-box" type="checkbox" ${todos[i].completed ? "checked": ""}><span class = "edit"> ${todos[i].activity} </span><i class="pull-right"><i class = "fa fa-trash-o fa-2x close"></i></i>
+                </div></i>`
         )
         $('.items').append(todoitem);
       }
@@ -44,6 +44,8 @@ $(document).ready(function () {
     addHover();
     $('.item-box').change(checkChange);
     $('.close').click(deleteTodo);
+    $('.edit').dblclick(editMe);
+    $('.save').click(saveMe)
   }
 
   function checkChange() {
@@ -124,4 +126,15 @@ $(document).ready(function () {
     $('.todofill').slideToggle();
   })
   addtodo(todos);
-})
+
+  function editMe(){
+  var content = $(this).html();
+  $(this).replaceWith(`<span class = 'input-group'><input type="text" class = "form-control" value="${content}"><div class="input-group-addon"><i class="fa fa-download"></i></div></span>`)
+  $(this).find('.save').slideToggle();
+};
+
+function saveMe(){
+    console.log($(this).find('.edit').val());
+}
+  
+});
